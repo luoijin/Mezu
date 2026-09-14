@@ -7,6 +7,9 @@
 
 Mezu - Music Library is a static, web-based audio and lyric presentation application developed using pure HTML5, CSS3, and vanilla JavaScript. It features a dark-themed visual design, a responsive multi-level navigation drawer, embedded HTML5 audio playback, dedicated lyric viewports, and full-screen artist showcases.
 
+## Live Demo
+Check out the live website here: [https://luoijin.github.io/Mezu/](https://luoijin.github.io/Mezu/)
+
 ---
 
 ## Table of Contents
