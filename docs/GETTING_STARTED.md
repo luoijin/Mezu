@@ -16,7 +16,7 @@ Serving the project through a local HTTP server rather than opening files direct
 
 ## 2. Running Locally
 
-### Method A: VS Code Live Server (Default)
+### VS Code Live Server 
 The repository contains default port configuration in `.vscode/settings.json` specifying port 5501.
 
 1. Open the project folder in Visual Studio Code.
@@ -26,40 +26,6 @@ The repository contains default port configuration in `.vscode/settings.json` sp
    ```
    http://127.0.0.1:5501/index.html
    ```
-
----
-
-### Method B: Python HTTP Server
-If Python 3 is installed, start a local HTTP server from your terminal:
-
-```bash
-cd /home/luoijin/Github/Mp3
-python3 -m http.server 5501
-```
-
-Access the application in your browser at `http://localhost:5501`.
-
----
-
-### Method C: Node.js (npx serve)
-If Node.js is installed on your workstation:
-
-```bash
-cd /home/luoijin/Github/Mp3
-npx serve . -p 5501
-```
-
----
-
-### Method D: Docker Container
-To run the application inside an isolated Nginx container:
-
-```bash
-docker build -t mezu-music-app .
-docker run -d -p 8080:80 --name mezu-instance mezu-music-app
-```
-
-Access the application in your browser at `http://localhost:8080`.
 
 ---
 
