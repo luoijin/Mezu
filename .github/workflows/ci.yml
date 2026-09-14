@@ -1,0 +1,72 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-verify:
+    name: Code & Assets Integrity Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Verify Directory Structure
+        run: |
+          echo "Checking essential folders..."
+          test -d docs
+          test -d library
+          test -d songs
+          test -d images
+          test -f index.html
+          test -f script.js
+          test -f style.css
+          test -f README.md
+          echo "Directory structure intact."
+
+      - name: Validate MP3 Media Files
+        run: |
+          echo "Verifying MP3 media files exist and are non-empty..."
+          for f in songs/*.mp3; do
+            [ -f "$f" ] || continue
+            size=$(stat -c%s "$f")
+            if [ "$size" -lt 100000 ]; then
+              echo "Error: File $f is suspiciously small ($size bytes)"
+              exit 1
+            fi
+            echo "Verified: $f ($size bytes)"
+          done
+
+      - name: Validate Video Media Files
+        run: |
+          echo "Verifying MP4 background video files..."
+          for v in images/*.mp4; do
+            [ -f "$v" ] || continue
+            size=$(stat -c%s "$v")
+            echo "Verified video: $v ($size bytes)"
+          done
+
+      - name: Verify Documentation Files
+        run: |
+          echo "Checking documentation files exist..."
+          docs=(
+            "README.md"
+            "docs/README.md"
+            "docs/ARCHITECTURE.md"
+            "docs/GETTING_STARTED.md"
+            "docs/AUDIO_CATALOG.md"
+            "docs/UI_UX_DESIGN_SYSTEM.md"
+            "docs/DEVELOPMENT_GUIDE.md"
+            "docs/TESTING_QA.md"
+            "docs/DEPLOYMENT.md"
+          )
+          for doc in "${docs[@]}"; do
+            if [ ! -f "$doc" ]; then
+              echo "Missing required documentation: $doc"
+              exit 1
+            fi
+            echo "Verified documentation: $doc"
+          done
